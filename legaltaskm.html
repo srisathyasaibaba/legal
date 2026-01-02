@@ -22,10 +22,14 @@
       --muted: #b9c6db;
       --accent-a: #00f5ff;
       --accent-b: #ff00c8;
+      --glass: rgba(255, 255, 255, 0.03);
       --radius: 16px;
       --maxw: 1100px;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", "Helvetica Neue", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
+
+    html, body { height: 100%; }
 
     body {
       margin: 0;
@@ -38,9 +42,23 @@
       justify-content: center;
     }
 
-    .wrap {
-      max-width: var(--maxw);
-      width: 100%;
+    .wrap { max-width: var(--maxw); width: 100%; }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      padding: 28px;
+      border-radius: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    .title {
+      font-size: 1.6rem;
+      background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
     }
 
     .card {
@@ -48,43 +66,53 @@
       border-radius: var(--radius);
       padding: 22px;
       margin-bottom: 18px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
 
-    h1, h2 {
-      background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+    nav.toc {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
     }
 
-    nav a {
-      margin-right: 12px;
+    nav.toc a {
+      font-size: 0.9rem;
       color: var(--muted);
       text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
     }
 
-    a.inline {
-      color: var(--accent-a);
+    h2 { color: #f7fbff; }
+    h3 { color: #eaf3ff; }
+    p, ul { color: #dbe9ff; }
+
+    .section-note {
+      background: rgba(255,255,255,0.02);
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin: 10px 0;
     }
+
+    a.inline { color: var(--accent-a); }
 
     footer {
       color: var(--muted);
       font-size: 0.9rem;
-      margin-top: 20px;
-      text-align: center;
+      margin-top: 14px;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width:720px) {
       body { padding: 18px; }
+      .title { font-size: 1.3rem; }
     }
   </style>
 
   <!-- ========= META BINDING SCRIPT ========= -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const meta = name =>
-        document.querySelector(`meta[name="${name}"]`)?.content || "";
+      const m = n => document.querySelector(`meta[name="${n}"]`)?.content || "";
 
       const cfg = {
         app: m("app-name"),
@@ -94,7 +122,6 @@
         edate: m("effective-date"),
         cdate: m("copyr-date")
       };
-
 
       document.title = `${cfg.app} – Terms of Use & Privacy Policy`;
 
@@ -114,27 +141,23 @@
 <body>
 <div class="wrap">
 
-  <!-- HEADER -->
-  <div class="card">
-    <h1 align="center" data-app></h1>
-    <p align="center">Terms of Use & Privacy Policy</p>
-
-    <p align="right">
-      <strong>Effective Date:</strong> <span data-date></span>
-    </p>
-    <p align="right">
-      <strong>Contact:</strong>
-      <a class="inline" data-email></a>
-    </p>
+  <div class="hero card">
+    <h1 class="title">Terms of Use and Privacy Policy</h1>
   </div>
 
-  <!-- CONTENT -->
-  <div class="card">
-    <nav>
+  <div style="text-align:right">
+    Effective date: <strong data-edate></strong>
+  </div>
+  <div style="text-align:right">
+    Contact: <a class="inline" data-email></a>
+  </div>
+
+ <div class="card">
+    <nav class="toc">
       <a href="#overview">Overview</a>
-      <a href="#terms">Terms</a>
-      <a href="#privacy">Privacy</a>
-      <a href="#rights">Rights</a>
+      <a href="#terms">Terms of Use</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#gdpr">Your Rights</a>
       <a href="#contact">Contact</a>
     </nav>
 
